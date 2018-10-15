@@ -31,7 +31,7 @@ const SocialSchema = new Schema({
 });
 
 const ProfileSchema = new Schema({
-  user: { type: ObjectId, ref: 'users' },
+  user: { type: ObjectId, ref: 'User' },
   handle: { type: String, required: true, max: 40 },
   company: { type: String },
   website: { type: String },
