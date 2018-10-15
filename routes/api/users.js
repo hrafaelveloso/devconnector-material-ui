@@ -84,37 +84,42 @@ router.post('/login', (req, res, next) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email }).then(user => {
-    if (!user) {
+  User.findOne({ email })
+    .then(user => {
+      if (!user) {
+        errors.email = 'User not found';
+        return res.status(404).json(errors);
+      }
+
+      bcrypt.compare(password, user.password).then(isMatch => {
+        if (isMatch) {
+          const payload = {
+            id: user._id,
+            name: user.name,
+            avatar: user.avatar
+          };
+
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            { expiresIn: 3600 },
+            (err, token) => {
+              res.json({
+                success: true,
+                token: 'Bearer ' + token
+              });
+            }
+          );
+        } else {
+          errors.password = 'Password incorrect';
+          return res.status(400).json(errors);
+        }
+      });
+    })
+    .catch(err => {
       errors.email = 'User not found';
       return res.status(404).json(errors);
-    }
-
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        const payload = {
-          id: user._id,
-          name: user.name,
-          avatar: user.avatar
-        };
-
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: 'Bearer ' + token
-            });
-          }
-        );
-      } else {
-        errors.password = 'Password incorrect';
-        return res.status(400).json(errors);
-      }
     });
-  });
 });
 
 // @route   POST /api/users/current
