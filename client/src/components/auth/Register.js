@@ -65,6 +65,7 @@ class Register extends Component {
                 <TextFieldGroup
                   placeholder="Name"
                   name="name"
+                  label="Name"
                   value={name}
                   onChange={this.onChange}
                   error={errors.name}
@@ -73,6 +74,7 @@ class Register extends Component {
                   type="email"
                   placeholder="Email Address"
                   name="name"
+                  label="Email Address"
                   value={email}
                   onChange={this.onChange}
                   error={errors.email}
@@ -83,6 +85,7 @@ class Register extends Component {
                   type="password"
                   placeholder="Password"
                   name="password"
+                  label="Password"
                   value={password}
                   onChange={this.onChange}
                   error={errors.password}
@@ -91,6 +94,7 @@ class Register extends Component {
                   type="password"
                   placeholder="Confirm Password"
                   name="password2"
+                  label="Confirm Password"
                   value={password2}
                   onChange={this.onChange}
                   error={errors.password2}

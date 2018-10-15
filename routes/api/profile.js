@@ -11,15 +11,6 @@ const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require('../../validation/education');
 
-// @route   GET /api/profile/test
-// @desc    Test profile route
-// @access  Public
-router.get('/test', (req, res, next) => {
-  res.json({
-    msg: 'Profile Works'
-  });
-});
-
 // @route   GET /api/profile
 // @desc    Get current user profile
 // @access  Private
