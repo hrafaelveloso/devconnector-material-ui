@@ -34,7 +34,7 @@ router.get(
       .then(profile => {
         if (!profile) {
           errors.noProfile = 'There is no Profile for this user';
-          res.status(404).json(errors);
+          return res.status(404).json(errors);
         }
 
         res.json(profile);
