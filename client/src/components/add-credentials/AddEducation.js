@@ -174,7 +174,7 @@ class AddEducation extends Component {
 AddEducation.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  addExperience: PropTypes.func.isRequired
+  addEducation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
