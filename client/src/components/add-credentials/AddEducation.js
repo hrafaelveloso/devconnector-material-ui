@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import TextFieldGroup from '../common/TextFieldGroup';
 
-import { addExperience } from '../../actions/credentialsActions';
+import { addEducation } from '../../actions/credentialsActions';
 
-class AddExperience extends Component {
+class AddEducation extends Component {
   state = {
     company: '',
     title: '',
@@ -42,7 +42,7 @@ class AddExperience extends Component {
       description
     } = this.state;
 
-    const experienceData = {
+    const educationData = {
       company,
       title,
       location,
@@ -52,7 +52,7 @@ class AddExperience extends Component {
       description
     };
 
-    this.props.addExperience(experienceData, this.props.history);
+    this.props.addEducation(educationData, this.props.history);
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -88,7 +88,7 @@ class AddExperience extends Component {
               <Link to="/dashboard" className="btn btn-light">
                 Go Back
               </Link>
-              <h1 className="display-4 text-center">Add Experience</h1>
+              <h1 className="display-4 text-center">Add Education</h1>
               <p className="text-lead text-center">
                 Add any job or position that you have had in the past or current
               </p>
@@ -171,7 +171,7 @@ class AddExperience extends Component {
   }
 }
 
-AddExperience.propTypes = {
+AddEducation.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   addExperience: PropTypes.func.isRequired
@@ -185,6 +185,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    addExperience
+    addEducation
   }
-)(withRouter(AddExperience));
+)(withRouter(AddEducation));

@@ -6,8 +6,7 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER,
-  SET_ERRORS
+  SET_CURRENT_USER
 } from './types';
 
 //Get current profile
@@ -37,7 +36,7 @@ export const createProfile = (profileData, history) => dispatch => {
     .post('/api/profile', profileData)
     .then(res => {
       dispatch({
-        type: SET_ERRORS,
+        type: GET_ERRORS,
         payload: {}
       });
       history.push('/dashboard');

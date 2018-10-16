@@ -9,6 +9,10 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post('/api/users/register', userData)
     .then(res => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: {}
+      });
       history.push('/login');
     })
     .catch(err => {
@@ -35,6 +39,10 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token);
 
       dispatch(setCurrentUser(decoded));
+      dispatch({
+        type: GET_ERRORS,
+        payload: {}
+      });
     })
     .catch(err => {
       dispatch({
