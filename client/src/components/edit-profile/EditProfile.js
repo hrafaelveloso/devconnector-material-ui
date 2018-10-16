@@ -33,14 +33,9 @@ class EditProfile extends Component {
     this.props.getCurrentProfile();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { errors } = nextProps;
-    if (errors) {
-      this.setState({ errors: errors });
-    }
-
-    if (nextProps.profile.profile) {
-      const { profile } = nextProps.profile;
+  componentDidUpdate(prevProps) {
+    if (this.props.profile.profile !== prevProps.profile.profile) {
+      const { profile } = this.props.profile;
 
       // Bring skills array back to CSV
       const skillsCSV = profile.skills.join(',');
@@ -49,8 +44,8 @@ class EditProfile extends Component {
       profile.company = !isEmpty(profile.company) ? profile.company : '';
       profile.website = !isEmpty(profile.website) ? profile.website : '';
       profile.location = !isEmpty(profile.location) ? profile.location : '';
-      profile.githubusername = !isEmpty(profile.githubusername)
-        ? profile.githubusername
+      profile.githubUsername = !isEmpty(profile.githubUsername)
+        ? profile.githubUsername
         : '';
       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
       profile.social = !isEmpty(profile.social) ? profile.social : {};
@@ -78,7 +73,7 @@ class EditProfile extends Component {
         location: profile.location,
         status: profile.status,
         skills: skillsCSV,
-        githubusername: profile.githubusername,
+        githubUsername: profile.githubUsername,
         bio: profile.bio,
         twitter: profile.twitter,
         facebook: profile.facebook,
@@ -89,89 +84,74 @@ class EditProfile extends Component {
     }
   }
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
+  // componentWillReceiveProps(nextProps) {
   //   const { errors } = nextProps;
-
-  //   if (nextProps.profile.profile) {
-  //     const { profile } = nextProps.profile;
-
-  //     if (profile) {
-  //       //Bring skills array
-  //       const skillsCSV = profile.skills.join(',');
-
-  //       profile.company = !isEmpty(profile.company) ? profile.company : '';
-  //       profile.website = !isEmpty(profile.website) ? profile.website : '';
-  //       profile.location = !isEmpty(profile.location) ? profile.location : '';
-  //       profile.githubUsername = !isEmpty(profile.githubUsername)
-  //         ? profile.githubUsername
-  //         : '';
-  //       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
-  //       profile.social = !isEmpty(profile.social) ? profile.social : {};
-  //       profile.twitter = !isEmpty(profile.social.twitter)
-  //         ? profile.social.twitter
-  //         : '';
-  //       profile.facebook = !isEmpty(profile.social.facebook)
-  //         ? profile.social.facebook
-  //         : '';
-  //       profile.youtube = !isEmpty(profile.social.youtube)
-  //         ? profile.social.youtube
-  //         : '';
-  //       profile.linkedin = !isEmpty(profile.social.linkedin)
-  //         ? profile.social.linkedin
-  //         : '';
-  //       profile.instagram = !isEmpty(profile.social.instagram)
-  //         ? profile.social.instagram
-  //         : '';
-
-  //       if (errors) {
-  //         return {
-  //           ...prevState,
-  //           handle: profile.handle,
-  //           company: profile.company,
-  //           website: profile.website,
-  //           location: profile.location,
-  //           status: profile.status,
-  //           skills: skillsCSV,
-  //           githubUsername: profile.githubUsername,
-  //           bio: profile.bio,
-  //           twitter: profile.twitter,
-  //           facebook: profile.facebook,
-  //           linkedin: profile.linkedin,
-  //           instagram: profile.instagram,
-  //           youtube: profile.youtube,
-  //           errors
-  //         };
-  //       } else {
-  //         //Set component fields state
-  //         return {
-  //           ...prevState,
-  //           handle: profile.handle,
-  //           company: profile.company,
-  //           website: profile.website,
-  //           location: profile.location,
-  //           status: profile.status,
-  //           skills: skillsCSV,
-  //           githubUsername: profile.githubUsername,
-  //           bio: profile.bio,
-  //           twitter: profile.twitter,
-  //           facebook: profile.facebook,
-  //           linkedin: profile.linkedin,
-  //           instagram: profile.instagram,
-  //           youtube: profile.youtube
-  //         };
-  //       }
-  //     }
-  //   }
-
   //   if (errors) {
-  //     return {
-  //       ...prevState,
-  //       errors
-  //     };
+  //     this.setState({ errors: errors });
   //   }
 
-  //   return null;
+  // if (nextProps.profile.profile) {
+  //   const { profile } = nextProps.profile;
+
+  //   // Bring skills array back to CSV
+  //   const skillsCSV = profile.skills.join(',');
+
+  //   // If profile field doesnt exist, make empty string
+  //   profile.company = !isEmpty(profile.company) ? profile.company : '';
+  //   profile.website = !isEmpty(profile.website) ? profile.website : '';
+  //   profile.location = !isEmpty(profile.location) ? profile.location : '';
+  //   profile.githubusername = !isEmpty(profile.githubusername)
+  //     ? profile.githubusername
+  //     : '';
+  //   profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+  //   profile.social = !isEmpty(profile.social) ? profile.social : {};
+  //   profile.twitter = !isEmpty(profile.social.twitter)
+  //     ? profile.social.twitter
+  //     : '';
+  //   profile.facebook = !isEmpty(profile.social.facebook)
+  //     ? profile.social.facebook
+  //     : '';
+  //   profile.linkedin = !isEmpty(profile.social.linkedin)
+  //     ? profile.social.linkedin
+  //     : '';
+  //   profile.youtube = !isEmpty(profile.social.youtube)
+  //     ? profile.social.youtube
+  //     : '';
+  //   profile.instagram = !isEmpty(profile.social.instagram)
+  //     ? profile.social.instagram
+  //     : '';
+
+  //   // Set component fields state
+  //   this.setState({
+  //     handle: profile.handle,
+  //     company: profile.company,
+  //     website: profile.website,
+  //     location: profile.location,
+  //     status: profile.status,
+  //     skills: skillsCSV,
+  //     githubusername: profile.githubusername,
+  //     bio: profile.bio,
+  //     twitter: profile.twitter,
+  //     facebook: profile.facebook,
+  //     linkedin: profile.linkedin,
+  //     youtube: profile.youtube,
+  //     instagram: profile.instagram
+  //   });
   // }
+  // }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { errors } = nextProps;
+
+    if (errors) {
+      return {
+        ...prevState,
+        errors
+      };
+    }
+
+    return null;
+  }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -287,7 +267,7 @@ class EditProfile extends Component {
 
     //Select options for status
     const options = [
-      { label: 'Select Professional Status', value: 0 },
+      { label: 'Select Professional Status', value: '' },
       { label: 'Developer', value: 'Developer' },
       { label: 'Junior Developer', value: 'Junior Developer' },
       { label: 'Senior Developer', value: 'Senior Developer' },

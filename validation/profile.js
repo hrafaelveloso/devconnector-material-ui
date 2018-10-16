@@ -20,6 +20,10 @@ module.exports = validateProfileInput = data => {
     errors.status = 'Status field is required';
   }
 
+  if (data.status === '0') {
+    errors.status = 'Status field is required';
+  }
+
   if (Validator.isEmpty(data.skills)) {
     errors.skills = 'Skills field is required';
   }
