@@ -1,10 +1,12 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_ERRORS
+  GET_ERRORS,
+  SET_CURRENT_USER
 } from './types';
 
 //Get current profile
@@ -14,7 +16,6 @@ export const getCurrentProfile = () => dispatch => {
   axios
     .get('/api/profile')
     .then(res => {
-      console.log(res);
       dispatch({
         type: GET_PROFILE,
         payload: res.data
@@ -56,4 +57,37 @@ export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
   };
+};
+
+//Delete profile
+export const deleteAccount = () => dispatch => {
+  Swal({
+    title: 'Delete account!',
+    text: 'Are you sure? This can NOT be undone!',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel',
+    focusCancel: true
+  }).then(result => {
+    if (result.value) {
+      axios
+        .delete('/api/profile')
+        .then(res => {
+          dispatch({
+            type: SET_CURRENT_USER,
+            payload: {}
+          });
+          localStorage.removeItem('jwtToken');
+        })
+        .catch(err => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          });
+        });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal('Cancelled', 'Your account was not deleted!', 'error');
+    }
+  });
 };
