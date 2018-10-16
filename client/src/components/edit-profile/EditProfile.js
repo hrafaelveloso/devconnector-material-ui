@@ -215,6 +215,9 @@ class EditProfile extends Component {
       { label: 'Developer', value: 'Developer' },
       { label: 'Junior Developer', value: 'Junior Developer' },
       { label: 'Senior Developer', value: 'Senior Developer' },
+      { label: 'Full-Stack Developer', value: 'Full-Stack Developer' },
+      { label: 'Backend Developer', value: 'Backend Developer' },
+      { label: 'Frontend Developer', value: 'Frontend Developer' },
       { label: 'Manager', value: 'Manager' },
       { label: 'Student', value: 'Student' },
       { label: 'Learning', value: 'Learning' },
@@ -242,7 +245,6 @@ class EditProfile extends Component {
                   info="A unique handle for your profile URL."
                 />
                 <SelectListGroup
-                  placeholder="johndoe"
                   name="status"
                   value={status}
                   onChange={this.onChange}
