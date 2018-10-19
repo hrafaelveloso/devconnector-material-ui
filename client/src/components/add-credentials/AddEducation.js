@@ -9,9 +9,9 @@ import { addEducation } from '../../actions/credentialsActions';
 
 class AddEducation extends Component {
   state = {
-    company: '',
-    title: '',
-    location: '',
+    school: '',
+    degree: '',
+    fieldOfStudy: '',
     from: '',
     to: '',
     current: false,
@@ -33,9 +33,9 @@ class AddEducation extends Component {
     e.preventDefault();
 
     const {
-      company,
-      title,
-      location,
+      school,
+      degree,
+      fieldOfStudy,
       from,
       to,
       current,
@@ -43,9 +43,9 @@ class AddEducation extends Component {
     } = this.state;
 
     const educationData = {
-      company,
-      title,
-      location,
+      school,
+      degree,
+      fieldOfStudy,
       from,
       to,
       current,
@@ -70,10 +70,10 @@ class AddEducation extends Component {
 
   render() {
     const {
-      company,
+      school,
       errors,
-      title,
-      location,
+      degree,
+      fieldOfStudy,
       from,
       to,
       current,
@@ -81,7 +81,7 @@ class AddEducation extends Component {
       disabled
     } = this.state;
     return (
-      <div className="add-experience">
+      <div className="add-education">
         <div className="container">
           <div className="row">
             <div className="col-md-9 m-auto">
@@ -90,33 +90,33 @@ class AddEducation extends Component {
               </Link>
               <h1 className="display-4 text-center">Add Education</h1>
               <p className="text-lead text-center">
-                Add any job or position that you have had in the past or current
+                Add any school, bootcamp, etc that you have attended
               </p>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
                   placeholder="University of Minho"
-                  label="* Company"
-                  name="company"
-                  value={company}
+                  label="* School"
+                  name="school"
+                  value={school}
                   onChange={this.onChange}
-                  error={errors.company}
+                  error={errors.school}
                 />
                 <TextFieldGroup
-                  placeholder="Student"
-                  label="* Job Title"
-                  name="title"
-                  value={title}
+                  placeholder="Some degree"
+                  label="* Degree or Certification"
+                  name="degree"
+                  value={degree}
                   onChange={this.onChange}
-                  error={errors.title}
+                  error={errors.degree}
                 />
                 <TextFieldGroup
-                  placeholder="Campus de Azurém"
-                  label="Location"
-                  name="location"
-                  value={location}
+                  placeholder="Informatics Technologies"
+                  label="* Field Of Study"
+                  name="fieldOfStudy"
+                  value={fieldOfStudy}
                   onChange={this.onChange}
-                  error={errors.location}
+                  error={errors.fieldOfStudy}
                 />
                 <TextFieldGroup
                   label="From date"
@@ -146,13 +146,14 @@ class AddEducation extends Component {
                     id="current"
                   />
                   <label htmlFor="current" className="form-check-label">
-                    Current Job
+                    Current
                   </label>
                 </div>
                 <TextAreaFieldGroup
-                  label="Job Description"
-                  placeholder="The work consisted ..."
+                  label="Program Description"
+                  placeholder="The program was ..."
                   name="description"
+                  info="Tell us about the program you were in"
                   value={description}
                   onChange={this.onChange}
                   error={errors.description}

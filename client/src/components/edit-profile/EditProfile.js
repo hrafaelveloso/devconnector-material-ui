@@ -1,14 +1,13 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import TextFieldGroup from '../common/TextFieldGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import { Link, withRouter } from 'react-router-dom';
+import { createProfile, getCurrentProfile } from '../../actions/profileActions';
+import isEmpty from '../../validation/is-empty';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
-import isEmpty from '../../validation/is-empty';
-
-import { createProfile, getCurrentProfile } from '../../actions/profileActions';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class EditProfile extends Component {
   state = {
@@ -232,6 +231,9 @@ class EditProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-9 m-auto">
+              <Link to="/dashboard" className="btn btn-light">
+                Go Back
+              </Link>
               <h1 className="display-4 text-center">Edit Profile</h1>
               <small className="d-block pb-3">* = required</small>
               <form onSubmit={this.onSubmit}>
