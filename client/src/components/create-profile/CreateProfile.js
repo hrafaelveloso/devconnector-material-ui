@@ -28,17 +28,25 @@ class CreateProfile extends Component {
     errors: {}
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { errors } = nextProps;
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   const { errors } = nextProps;
 
-    if (errors) {
-      return {
-        ...prevState,
-        errors
-      };
+  //   if (errors) {
+  //     return {
+  //       ...prevState,
+  //       errors
+  //     };
+  //   }
+
+  //   return null;
+  // }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.errors !== prevProps.errors) {
+      return this.setState({
+        errors: this.props.errors
+      });
     }
-
-    return null;
   }
 
   onChange = e => {

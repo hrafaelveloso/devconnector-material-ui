@@ -7,7 +7,8 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  CLEAR_ERRORS
 } from './types';
 
 //Get current profile
@@ -73,13 +74,11 @@ export const getProfiles = () => dispatch => {
 
 //Create profile
 export const createProfile = (profileData, history) => dispatch => {
+  dispatch(clearErrors());
+
   axios
     .post('/api/profile', profileData)
     .then(res => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: {}
-      });
       history.push('/dashboard');
     })
     .catch(err => {
@@ -135,4 +134,11 @@ export const deleteAccount = () => dispatch => {
       Swal('Cancelled', 'Your account was not deleted!', 'error');
     }
   });
+};
+
+//Clear errors
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
 };

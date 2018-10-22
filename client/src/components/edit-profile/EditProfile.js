@@ -33,6 +33,12 @@ class EditProfile extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (this.props.errors !== prevProps.errors) {
+      return this.setState({
+        errors: this.props.errors
+      });
+    }
+
     if (this.props.profile.profile !== prevProps.profile.profile) {
       const { profile } = this.props.profile;
 

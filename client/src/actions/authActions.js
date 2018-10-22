@@ -2,17 +2,15 @@ import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types';
 
 //Register User
 export const registerUser = (userData, history) => dispatch => {
+  dispatch(clearErrors());
+
   axios
     .post('/api/users/register', userData)
     .then(res => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: {}
-      });
       history.push('/login');
     })
     .catch(err => {
@@ -25,6 +23,8 @@ export const registerUser = (userData, history) => dispatch => {
 
 //Login - Get User token
 export const loginUser = userData => dispatch => {
+  dispatch(clearErrors());
+
   axios
     .post('/api/users/login', userData)
     .then(res => {
@@ -39,10 +39,6 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token);
 
       dispatch(setCurrentUser(decoded));
-      dispatch({
-        type: GET_ERRORS,
-        payload: {}
-      });
     })
     .catch(err => {
       dispatch({
@@ -67,4 +63,11 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
 
   dispatch(setCurrentUser({}));
+};
+
+//Clear errors
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
 };

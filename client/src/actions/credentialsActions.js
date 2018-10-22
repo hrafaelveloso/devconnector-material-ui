@@ -1,16 +1,13 @@
 import axios from 'axios';
 
-import { GET_ERRORS, GET_PROFILE } from './types';
+import { GET_ERRORS, GET_PROFILE, CLEAR_ERRORS } from './types';
 
 //Add experience
 export const addExperience = (experienceData, history) => dispatch => {
+  dispatch(clearErrors());
   axios
     .post('/api/profile/experience', experienceData)
     .then(res => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: {}
-      });
       history.push('/dashboard');
     })
     .catch(err => {
@@ -23,13 +20,11 @@ export const addExperience = (experienceData, history) => dispatch => {
 
 //Add education
 export const addEducation = (educationData, history) => dispatch => {
+  dispatch(clearErrors());
+
   axios
     .post('/api/profile/education', educationData)
     .then(res => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: {}
-      });
       history.push('/dashboard');
     })
     .catch(err => {
@@ -74,4 +69,11 @@ export const deleteEducation = id => dispatch => {
         payload: err.response.data
       });
     });
+};
+
+//Clear errors
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
 };
