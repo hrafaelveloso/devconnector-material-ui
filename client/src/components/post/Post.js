@@ -7,6 +7,8 @@ import PostItem from '../posts/PostItem';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
+import { Button } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 
 class Post extends Component {
   componentDidMount() {
@@ -34,8 +36,11 @@ class Post extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <Link to="/feed" className="btn btn-light mb-3">
-                <i className="fas fa-arrow-circle-left" /> Back to feed
+              <Link to="/feed" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" size="small" className="mb-2">
+                  <ArrowBack />
+                  Back to feed
+                </Button>
               </Link>
               {postContent}
             </div>

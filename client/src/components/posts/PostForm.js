@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost } from '../../actions/postActions';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  TextField,
+  CardActions,
+  Button
+} from '@material-ui/core';
 
 class PostForm extends Component {
   state = {
@@ -42,28 +49,51 @@ class PostForm extends Component {
 
   render() {
     const { text, errors } = this.state;
+    let errorText;
+
+    errors.text ? (errorText = true) : (errorText = false);
+
     return (
-      <div className="post-form mb-3">
-        <div className="card card-info">
-          <div className="card-header bg-info text-white">Say Something...</div>
-          <div className="card-body">
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Create a post"
-                  name="text"
-                  value={text}
-                  onChange={this.onChange}
-                  error={errors.text}
-                />
-              </div>
-              <button type="submit" className="btn btn-dark">
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+      <Card className="mb-4">
+        <CardHeader
+          titleTypographyProps={{
+            variant: 'subtitle1'
+          }}
+          title="Say something..."
+          classes={{
+            title: 'text-white'
+          }}
+          className="bg-info"
+        />
+        <form noValidate onSubmit={this.onSubmit}>
+          <CardContent>
+            <TextField
+              label="Create a post"
+              multiline
+              rows="3"
+              error={errorText}
+              required
+              fullWidth
+              name="text"
+              helperText={errors.text}
+              onChange={this.onChange}
+              value={text}
+              margin="normal"
+              variant="outlined"
+            />
+          </CardContent>
+          <CardActions>
+            <Button
+              onClick={this.onSubmit}
+              size="small"
+              variant="outlined"
+              color="primary"
+            >
+              Submit
+            </Button>
+          </CardActions>
+        </form>
+      </Card>
     );
   }
 }

@@ -1,53 +1,65 @@
-import React, { Component } from 'react';
+import {
+  List,
+  ListItem,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Hidden,
+  Typography
+} from '@material-ui/core';
+import Check from '@material-ui/icons/Check';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import isEmpty from '../../validation/is-empty';
+import ProfileAbout from '../profile/ProfileAbout';
 
 class ProfileItem extends Component {
   render() {
     const { profile } = this.props;
     return (
-      <div className="card mb-3">
-        <div className="card-body bg-light">
-          <div className="row">
-            <div className="col-2">
+      <Card className="mb-2">
+        <CardContent>
+          <Grid container spacing={32}>
+            <Grid item md={2} sm={2}>
               <img
                 src={profile.user.avatar}
                 alt={profile.user.name}
-                className="rounded-circle"
+                className="rounded-circle w-100"
               />
-            </div>
-            <div className="col-lg-6 col-md-4 col-8">
-              <h3>{profile.user.name}</h3>
-              <p>
-                {profile.status}{' '}
-                {isEmpty(profile.company) ? null : (
-                  <span> at {profile.company}</span>
-                )}
+            </Grid>
+            <Grid item md={3} sm={8} lg={4}>
+              <Typography color="textPrimary" variant="h5">
+                {profile.user.name}
+              </Typography>
+              <p className="mt-3">
+                <Link
+                  to={`/profile/${profile.handle}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button variant="contained" color="primary">
+                    View profile
+                  </Button>
+                </Link>
               </p>
-              <p>
-                {isEmpty(profile.location) ? null : (
-                  <span>{profile.location}</span>
-                )}
-              </p>
-              <Link to={`/profile/${profile.handle}`} className="btn btn-info">
-                View Profile
-              </Link>
-            </div>
-            <div className="col-md-4 d-none d-md-block">
-              <h4>Skill Set</h4>
-              <ul className="list-group">
-                {profile.skills.slice(0, 4).map((skill, index) => (
-                  <li key={index} className="list-group-item">
-                    <i className="fas fa-check pr-1" />
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Grid>
+            <Hidden mdDown>
+              <Grid item md={3} lg={6}>
+                <Typography color="textSecondary" variant="h6">
+                  Skill set
+                </Typography>
+                <List>
+                  {profile.skills.slice(0, 4).map((skill, index) => (
+                    <ListItem key={index} divider>
+                      <Check /> {skill}
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+            </Hidden>
+          </Grid>
+        </CardContent>
+      </Card>
     );
   }
 }

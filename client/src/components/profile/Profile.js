@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ProfileAbout from './ProfileAbout';
-import ProfileGithub from './ProfileGithub';
 import ProfileHeader from './ProfileHeader';
 import ProfileCreds from './ProfileCreds';
 import Spinner from '../common/Spinner';
@@ -44,9 +43,6 @@ class Profile extends Component {
             education={profile.education}
             experience={profile.experience}
           />
-          {profile.githubUsername ? (
-            <ProfileGithub username={profile.githubUsername} />
-          ) : null}
         </div>
       );
     }

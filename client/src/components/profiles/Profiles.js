@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
 import { getProfiles } from '../../actions/profileActions';
 import ProfileItem from './ProfileItem';
+import { Grid, Typography } from '@material-ui/core';
 
 class Profiles extends Component {
   componentDidMount() {
@@ -28,19 +29,30 @@ class Profiles extends Component {
     }
 
     return (
-      <div className="profiles">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4 text-center">Developer Profiles</h1>
-              <p className="lead text-center">
-                Browse and connect with developers
-              </p>
-              {profileItems}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Grid container spacing={16} className="m-auto">
+        <Grid item xs={12}>
+          <Typography variant="h4" className="text-center">
+            Developer Profiles
+          </Typography>
+          <Typography className="text-center mb-3">
+            Browse and connect with developers
+          </Typography>
+          {profileItems}
+        </Grid>
+      </Grid>
+      // <div className="profiles">
+      //   <div className="container">
+      //     <div className="row">
+      //       <div className="col-md-12">
+      //         <h1 className="display-4 text-center">Developer Profiles</h1>
+      //         <p className="lead text-center">
+      //           Browse and connect with developers
+      //         </p>
+      //         {profileItems}
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>
     );
   }
 }
