@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from '../../validation/is-empty';
+import { Check } from '@material-ui/icons';
+import { Typography } from '@material-ui/core';
 
 class ProfileAbout extends Component {
   render() {
@@ -10,7 +12,7 @@ class ProfileAbout extends Component {
 
     const skills = profile.skills.map((skill, index) => (
       <div key={index} className="p-3">
-        <i className="fas fa-check" /> {skill}
+        <Check /> {skill}
       </div>
     ));
 
@@ -18,20 +20,22 @@ class ProfileAbout extends Component {
       <div className="row">
         <div className="col-md-12">
           <div className="card card-body bg-light mb-3">
-            <h3 className="text-center text-info">
+            <Typography variant="h4" align="center" className="text-info">
               {firstName}
               's Bio
-            </h3>
+            </Typography>
             {isEmpty(profile.bio) ? (
               <span>
                 {firstName}
                 's does not have a bio
               </span>
             ) : (
-              <p className="lead">{profile.bio}</p>
+              <Typography variant="body1">{profile.bio}</Typography>
             )}
             <hr />
-            <h3 className="text-center text-info">Skill Set</h3>
+            <Typography variant="h4" className="text-center text-info">
+              Skill Set
+            </Typography>
             <div className="row">
               <div className="d-flex flex-wrap justify-content-center align-items-center">
                 {skills}

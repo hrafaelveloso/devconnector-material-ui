@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import TextFieldGroup from '../../components/common/TextFieldGroup';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { TextField, Button } from '@material-ui/core';
 
 class Register extends Component {
   state = {
@@ -62,48 +62,65 @@ class Register extends Component {
                 Create your DevConnector account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="Name"
-                  name="name"
+                <TextField
                   label="Name"
+                  fullWidth
+                  required
+                  className="mb-3"
+                  name="name"
+                  helperText={errors.name ? errors.name : null}
+                  error={errors.name}
                   value={name}
                   onChange={this.onChange}
-                  error={errors.name}
                 />
-                <TextFieldGroup
-                  type="email"
-                  placeholder="Email Address"
-                  name="email"
+                <TextField
                   label="Email Address"
+                  fullWidth
+                  required
+                  type="email"
+                  className="mb-3"
+                  name="email"
+                  helperText={
+                    errors.email
+                      ? errors.email
+                      : 'This site uses Gravatar so if you want a profile image, use a Gravatar email'
+                  }
+                  error={errors.email}
                   value={email}
                   onChange={this.onChange}
-                  error={errors.email}
-                  info="This site uses Gravatar so if you want a profile image, use
-                  a Gravatar email"
                 />
-                <TextFieldGroup
-                  type="password"
-                  placeholder="Password"
-                  name="password"
+                <TextField
                   label="Password"
+                  fullWidth
+                  required
+                  type="password"
+                  className="mb-3"
+                  name="password"
+                  helperText={errors.password ? errors.password : null}
+                  error={errors.password}
                   value={password}
                   onChange={this.onChange}
-                  error={errors.password}
                 />
-                <TextFieldGroup
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="password2"
+                <TextField
                   label="Confirm Password"
+                  fullWidth
+                  required
+                  type="password"
+                  className="mb-3"
+                  name="password2"
+                  helperText={errors.password2 ? errors.password2 : null}
+                  error={errors.password2}
                   value={password2}
                   onChange={this.onChange}
-                  error={errors.password2}
                 />
-                <input
+                <Button
                   type="submit"
-                  className="btn btn-info btn-block mt-4"
-                  value="Submit"
-                />
+                  color="primary"
+                  fullWidth
+                  variant="contained"
+                >
+                  Submit
+                </Button>
               </form>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
+import { Typography } from '@material-ui/core';
 
 class ProfileCreds extends Component {
   render() {
@@ -8,7 +9,7 @@ class ProfileCreds extends Component {
 
     const expItems = experience.map(exp => (
       <li key={exp._id} className="list-group-item mb-2">
-        <h4>{exp.company}</h4>
+        <Typography variant="h6">{exp.company}</Typography>
         <p>
           <Moment format="DD/MM/YYYY">{exp.from}</Moment> -
           {exp.to === null ? (
@@ -18,26 +19,63 @@ class ProfileCreds extends Component {
           )}
         </p>
         <p>
-          <strong>Position: </strong> {exp.title}
+          <Typography
+            component="span"
+            variant="h6"
+            style={{ display: 'inline', fontSize: '1rem' }}
+          >
+            Position:{' '}
+          </Typography>
+          <Typography
+            component="span"
+            variant="subtitle1"
+            style={{ display: 'inline' }}
+          >
+            {exp.title}
+          </Typography>
         </p>
         {exp.location === '' ? null : (
           <p>
-            <strong>Location: </strong>
-            {exp.location}
+            <Typography
+              component="span"
+              variant="h6"
+              style={{ display: 'inline', fontSize: '1rem' }}
+            >
+              Location:{' '}
+            </Typography>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              style={{ display: 'inline' }}
+            >
+              {exp.location}
+            </Typography>
           </p>
         )}
         {exp.description === '' ? null : (
-          <p>
-            <strong>Description: </strong>
-            {exp.description}
-          </p>
+          <>
+            <Typography
+              component="span"
+              variant="h6"
+              style={{ display: 'inline', fontSize: '1rem' }}
+            >
+              Description:{' '}
+            </Typography>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              style={{ display: 'inline' }}
+            >
+              {exp.description}
+            </Typography>
+          </>
         )}
       </li>
     ));
 
     const eduItems = education.map(edu => (
       <li key={edu._id} className="list-group-item mb-2">
-        <h4>{edu.school}</h4>
+        <Typography variant="h6">{edu.school}</Typography>
         <p>
           <Moment format="DD/MM/YYYY">{edu.from}</Moment> -
           {edu.to === null ? (
@@ -47,15 +85,53 @@ class ProfileCreds extends Component {
           )}
         </p>
         <p>
-          <strong>Degree: </strong> {edu.degree}
+          <Typography
+            component="span"
+            variant="h6"
+            style={{ display: 'inline', fontSize: '1rem' }}
+          >
+            Degree:{' '}
+          </Typography>
+          <Typography
+            component="span"
+            variant="subtitle1"
+            style={{ display: 'inline' }}
+          >
+            {edu.degree}
+          </Typography>
         </p>
         <p>
-          <strong>Field of Study: </strong> {edu.fieldOfStudy}
+          <Typography
+            component="span"
+            variant="h6"
+            style={{ display: 'inline', fontSize: '1rem' }}
+          >
+            Field of Study:{' '}
+          </Typography>
+          <Typography
+            component="span"
+            variant="subtitle1"
+            style={{ display: 'inline' }}
+          >
+            {edu.fieldOfStudy}
+          </Typography>
         </p>
         {edu.description === '' ? null : (
           <p>
-            <strong>Description: </strong>
-            {edu.description}
+            <Typography
+              component="span"
+              variant="h6"
+              style={{ display: 'inline', fontSize: '1rem' }}
+            >
+              Description:{' '}
+            </Typography>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              style={{ display: 'inline' }}
+            >
+              {edu.description}
+            </Typography>
           </p>
         )}
       </li>
@@ -64,7 +140,9 @@ class ProfileCreds extends Component {
     return (
       <div className="row">
         <div className="col-md-6">
-          <h3 className="text-center text-info">Experience</h3>
+          <Typography variant="h5" align="center" className="text-info">
+            Experience
+          </Typography>
           {expItems.length > 0 ? (
             <ul className="list-group">{expItems}</ul>
           ) : (
@@ -72,7 +150,9 @@ class ProfileCreds extends Component {
           )}
         </div>
         <div className="col-md-6">
-          <h3 className="text-center text-info">Education</h3>
+          <Typography variant="h5" align="center" className="text-info">
+            Education
+          </Typography>
           {eduItems.length > 0 ? (
             <ul className="list-group">{eduItems}</ul>
           ) : (

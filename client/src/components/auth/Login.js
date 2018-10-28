@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
-import TextFieldGroup from '../../components/common/TextFieldGroup';
+import { TextField, Button } from '@material-ui/core';
 
 class Login extends Component {
   state = {
@@ -61,29 +61,38 @@ class Login extends Component {
                 Sign in to your DevConnector account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  type="email"
-                  placeholder="Email Address"
+                <TextField
+                  label="Email address"
+                  fullWidth
+                  required
+                  type='email'
+                  className="mb-3"
                   name="email"
-                  value={email}
-                  label="Email Address"
-                  onChange={this.onChange}
+                  helperText={errors.email ? errors.email : null}
                   error={errors.email}
-                />
-                <TextFieldGroup
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={password}
-                  label="Password"
+                  value={email}
                   onChange={this.onChange}
+                />
+                <TextField
+                  label="Password"
+                  fullWidth
+                  required
+                  type="password"
+                  className="mb-3"
+                  name="password"
+                  helperText={errors.password ? errors.password : null}
                   error={errors.password}
+                  value={password}
+                  onChange={this.onChange}
                 />
-                <input
+                <Button
                   type="submit"
-                  className="btn btn-info btn-block mt-4"
-                  value="Submit"
-                />
+                  color="primary"
+                  fullWidth
+                  variant="contained"
+                >
+                  Login
+                </Button>
               </form>
             </div>
           </div>
