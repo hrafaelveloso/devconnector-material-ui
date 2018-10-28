@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
-import InputGroup from '../common/InputGroup';
-import SelectListGroup from '../common/SelectListGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import TextFieldGroup from '../common/TextFieldGroup';
+import { TextField, Button } from '@material-ui/core';
+import TextFieldAdornment from '../common/TextFieldAdornment';
+import SelectFormControl from '../common/SelectFormControl';
+import { ArrowBack } from '@material-ui/icons';
 
 class EditProfile extends Component {
   state = {
@@ -170,45 +170,59 @@ class EditProfile extends Component {
     if (displaySocialInputs) {
       socialInputs = (
         <div>
-          <InputGroup
-            placeholder="Twitter profile URL"
+          <TextFieldAdornment
+            label="Twitter"
+            fullWidth
             name="twitter"
-            icon="fab fa-twitter"
+            placeholder="Twitter profile URL"
+            error={errors.twitter}
             value={twitter}
             onChange={this.onChange}
-            error={errors.twitter}
+            icon="fab fa-twitter"
           />
-          <InputGroup
-            placeholder="Facebook profile URL"
+          <TextFieldAdornment
+            label="Facebook"
+            fullWidth
             name="facebook"
-            icon="fab fa-facebook"
+            placeholder="Facebook profile URL"
+            error={errors.facebook}
             value={facebook}
             onChange={this.onChange}
-            error={errors.facebook}
+            icon="fab fa-facebook-f"
+            className="mt-3"
           />
-          <InputGroup
-            placeholder="Linkedin profile URL"
+          <TextFieldAdornment
+            label="Linkedin"
+            fullWidth
             name="linkedin"
-            icon="fab fa-linkedin"
+            placeholder="Linkedin profile URL"
+            error={errors.linkedin}
             value={linkedin}
             onChange={this.onChange}
-            error={errors.linkedin}
+            icon="fab fa-linkedin-in"
+            className="mt-3"
           />
-          <InputGroup
-            placeholder="Youtube profile URL"
+          <TextFieldAdornment
+            label="Youtube"
+            fullWidth
             name="youtube"
-            icon="fab fa-youtube"
+            placeholder="Youtube profile URL"
+            error={errors.youtube}
             value={youtube}
             onChange={this.onChange}
-            error={errors.youtube}
+            icon="fab fa-youtube"
+            className="mt-3"
           />
-          <InputGroup
-            placeholder="Instagram profile URL"
+          <TextFieldAdornment
+            label="Instagram"
+            fullWidth
             name="instagram"
-            icon="fab fa-instagram"
+            placeholder="Instagram profile URL"
+            error={errors.instagram}
             value={instagram}
             onChange={this.onChange}
-            error={errors.instagram}
+            icon="fab fa-instagram"
+            className="mt-3"
           />
         </div>
       );
@@ -237,105 +251,153 @@ class EditProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-9 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
-                Go Back
+              <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                <Button>
+                  <ArrowBack />
+                  {'  '}
+                  Go Back
+                </Button>
               </Link>
               <h1 className="display-4 text-center">Edit Profile</h1>
               <small className="d-block pb-3">* = required</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="hrafaelveloso"
+              <form noValidate onSubmit={this.onSubmit}>
+                <TextField
+                  label="Profile handle"
+                  required
+                  fullWidth
+                  className="mb-3"
                   name="handle"
+                  helperText={
+                    errors.handle
+                      ? errors.handle
+                      : 'A unique handle for your profile URL.'
+                  }
+                  error={errors.handle}
                   value={handle}
                   onChange={this.onChange}
-                  error={errors.handle}
-                  label="* Profile handle"
-                  info="A unique handle for your profile URL."
                 />
-                <SelectListGroup
+                <SelectFormControl
                   name="status"
                   value={status}
-                  onChange={this.onChange}
                   error={errors.status}
-                  label="Select Professional Status"
+                  onChange={this.onChange}
                   options={options}
-                  info="Give us an idea where you are at in your career."
+                  fullWidth
+                  className="mb-3"
+                  required
+                  placeholder="Professional Status"
+                  label="Give us an idea where you are at in your career."
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Company"
+                  fullWidth
                   placeholder="Alphabet"
+                  className="mb-3"
                   name="company"
+                  helperText={
+                    errors.company
+                      ? errors.company
+                      : 'Could be your onw company or one you work for.'
+                  }
+                  error={errors.company}
                   value={company}
                   onChange={this.onChange}
-                  error={errors.company}
-                  label="Company"
-                  info="Could be your onw company or one you work for."
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Website"
+                  fullWidth
                   placeholder="https://google.pt"
+                  className="mb-3"
                   name="website"
+                  helperText={
+                    errors.website
+                      ? errors.website
+                      : 'Could be your onw website or a company one.'
+                  }
+                  error={errors.website}
                   value={website}
                   onChange={this.onChange}
-                  error={errors.website}
-                  label="Website"
-                  info="Could be your onw website or a company one."
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Location"
+                  fullWidth
                   placeholder="Braga"
+                  className="mb-3"
                   name="location"
+                  helperText={
+                    errors.location ? errors.location : 'City of your location.'
+                  }
+                  error={errors.location}
                   value={location}
                   onChange={this.onChange}
-                  error={errors.location}
-                  label="Location"
-                  info="City of your location."
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Skills"
+                  fullWidth
                   placeholder="HTML,JavaScript,CSS,PHP"
+                  className="mb-3"
                   name="skills"
+                  helperText={
+                    errors.skills
+                      ? errors.skills
+                      : 'Please use comma separated values.'
+                  }
+                  error={errors.skills}
                   value={skills}
                   onChange={this.onChange}
-                  error={errors.skills}
-                  label="Skills"
-                  info="Please use comma separated values."
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Github Username"
+                  fullWidth
                   placeholder="johndoe"
+                  className="mb-3"
                   name="githubUsername"
+                  helperText={
+                    errors.githubUsername
+                      ? errors.githubUsername
+                      : 'If you want your latest repos and a Github link, include your username.'
+                  }
+                  error={errors.githubUsername}
                   value={githubUsername}
                   onChange={this.onChange}
-                  error={errors.githubUsername}
-                  label="Github Username"
-                  info="If you want your latest repos and a Github link, include your username."
                 />
-                <TextAreaFieldGroup
-                  placeholder="Short bio of yourself"
+                <TextField
+                  label="Bio"
+                  fullWidth
+                  multiline
+                  placeholder="Short bio of yoursel"
+                  className="mb-3"
                   name="bio"
+                  helperText={
+                    errors.bio ? errors.bio : 'Tell us a little about yourself.'
+                  }
+                  error={errors.bio}
                   value={bio}
                   onChange={this.onChange}
-                  error={errors.bio}
-                  label="Bio"
-                  info="Tell us a little about yourself."
                 />
                 <div className="mb-3">
-                  <button
-                    type="button"
+                  <Button
+                    variant="outlined"
                     onClick={() =>
                       this.setState(prevState => ({
                         displaySocialInputs: !prevState.displaySocialInputs
                       }))
                     }
-                    className="btn btn-light"
                   >
                     Add Social Network Links
-                  </button>
+                  </Button>
                   {'  '}
                   <span className="text-muted">Optional</span>
                 </div>
-                {socialInputs}
-                <input
+                <div className="mb-3">{socialInputs}</div>
+                <Button
+                  color="primary"
+                  fullWidth
+                  variant="contained"
                   type="submit"
-                  value="Submit"
-                  className="btn btn-info btn-block mt-4"
-                />
+                >
+                  Submit
+                </Button>
               </form>
             </div>
           </div>

@@ -12,7 +12,7 @@ import Check from '@material-ui/icons/Check';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ProfileAbout from '../profile/ProfileAbout';
+import isEmpty from '../../validation/is-empty';
 
 class ProfileItem extends Component {
   render() {
@@ -32,12 +32,26 @@ class ProfileItem extends Component {
               <Typography color="textPrimary" variant="h5">
                 {profile.user.name}
               </Typography>
+              <span>
+                <Typography component="span" variant="subtitle1">
+                  {profile.status}{' '}
+                  {isEmpty(profile.company) ? null : <>at {profile.company}</>}
+                </Typography>
+              </span>
+              <br />
+              {isEmpty(profile.location) ? null : (
+                <Typography variant="body1">{profile.location}</Typography>
+              )}
               <p className="mt-3">
                 <Link
                   to={`/profile/${profile.handle}`}
                   style={{ textDecoration: 'none' }}
                 >
-                  <Button variant="contained" color="primary">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    // style={{ textTransform: 'none' }}
+                  >
                     View profile
                   </Button>
                 </Link>

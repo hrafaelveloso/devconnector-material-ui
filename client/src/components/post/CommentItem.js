@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteComment } from '../../actions/postActions';
+import { Card, Grid, Typography, Button, CardContent } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 class CommentItem extends Component {
   onDeleteClick = (e, postId, commentId) => {
@@ -12,34 +14,40 @@ class CommentItem extends Component {
 
   render() {
     const { postId, comment, auth } = this.props;
+    console.dir(comment);
     return (
-      <div className="card card-body mb-3">
-        <div className="row">
-          <div className="col-md-2">
-            <a href="profile.html">
-              <img
-                className="rounded-circle d-none d-md-block"
-                src={comment.avatar}
-                alt=""
-              />
-            </a>
-            <br />
-            <p className="text-center">{comment.name}</p>
-          </div>
-          <div className="col-md-10">
-            <p className="lead">{comment.text}</p>
-            {comment.user === auth.user.id ? (
-              <button
-                onClick={e => this.onDeleteClick(e, postId, comment._id)}
-                type="button"
-                className="btn btn-danger mr-1"
-              >
-                <i className="fas fa-times" />
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </div>
+      <Card className="mb-3">
+        <CardContent>
+          <Grid container spacing={16}>
+            <Grid item md={2}>
+              <Link to="/profiles">
+                <img
+                  className="rounded-circle d-none d-md-block"
+                  src={comment.avatar}
+                  alt=""
+                />
+              </Link>
+              <br />
+              <Typography variant="subtitle1" className="text-center">
+                {comment.name}
+              </Typography>
+            </Grid>
+            <Grid item md={10}>
+              <Typography variant="h6" style={{ fontWeight: '300' }}>
+                {comment.text}
+              </Typography>
+              {comment.user === auth.user.id ? (
+                <Button
+                  className="bg-danger"
+                  onClick={e => this.onDeleteClick(e, postId, comment._id)}
+                >
+                  <i className="fas fa-times" />
+                </Button>
+              ) : null}
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
     );
   }
 }

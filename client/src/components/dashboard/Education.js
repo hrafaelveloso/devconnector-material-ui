@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { deleteEducation } from '../../actions/credentialsActions';
+import {
+  Typography,
+  Table,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableRow,
+  Button
+} from '@material-ui/core';
 
 class Education extends Component {
   onDeleteClick = (e, id) => {
@@ -11,46 +20,47 @@ class Education extends Component {
   };
 
   render() {
-    const education = this.props.education.map(edu => (
-      <tr key={edu._id}>
-        <td>{edu.school}</td>
-        <td>{edu.degree}</td>
-        <td>
+    const experience = this.props.education.map(edu => (
+      <TableRow key={edu._id}>
+        <TableCell>{edu.school}</TableCell>
+        <TableCell>{edu.degree}</TableCell>
+        <TableCell>
           <Moment format="DD/MM/YYYY">{edu.from}</Moment> -{' '}
           {edu.to === null ? (
             'Now'
           ) : (
             <Moment format="DD/MM/YYYY">{edu.to}</Moment>
           )}
-        </td>
-        <td>
-          <button
-            className="btn btn-danger"
+        </TableCell>
+        <TableCell>
+          <Button
+            className="bg-danger"
+            variant="contained"
             onClick={e => {
               this.onDeleteClick(e, edu._id);
             }}
           >
             Delete
-          </button>
-        </td>
-      </tr>
+          </Button>
+        </TableCell>
+      </TableRow>
     ));
 
     return (
-      <React.Fragment>
-        <h4 className="mb-4">Education Credentials</h4>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>School</th>
-              <th>Degree</th>
-              <th>Years</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>{education}</tbody>
-        </table>
-      </React.Fragment>
+      <div className="mt-3">
+        <Typography variant="h5">Education Credentials</Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>School</TableCell>
+              <TableCell>Degree</TableCell>
+              <TableCell>Years</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>{experience}</TableBody>
+        </Table>
+      </div>
     );
   }
 }

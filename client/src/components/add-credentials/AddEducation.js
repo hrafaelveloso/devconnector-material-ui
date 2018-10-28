@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import TextFieldGroup from '../common/TextFieldGroup';
 
 import { addEducation } from '../../actions/credentialsActions';
+import { ArrowBack } from '@material-ui/icons';
+import {
+  Button,
+  TextField,
+  Checkbox,
+  FormControlLabel
+} from '@material-ui/core';
 
 class AddEducation extends Component {
   state = {
@@ -21,6 +26,11 @@ class AddEducation extends Component {
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  onChangeFromDate = e =>
+    this.setState({
+      from: e
+    });
 
   onCheck = e => {
     this.setState({
@@ -85,84 +95,120 @@ class AddEducation extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-9 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
-                Go Back
+              <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                <Button>
+                  <ArrowBack />
+                  {'  '}
+                  Go Back
+                </Button>
               </Link>
               <h1 className="display-4 text-center">Add Education</h1>
               <p className="text-lead text-center">
                 Add any school, bootcamp, etc that you have attended
               </p>
               <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
+              <form noValidate onSubmit={this.onSubmit}>
+                <TextField
+                  label="School"
+                  required
+                  fullWidth
+                  className="mb-3"
                   placeholder="University of Minho"
-                  label="* School"
                   name="school"
+                  helperText={errors.school ? errors.school : null}
+                  error={errors.school}
                   value={school}
                   onChange={this.onChange}
-                  error={errors.school}
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Degree or Certification"
+                  required
+                  fullWidth
+                  className="mb-3"
                   placeholder="Some degree"
-                  label="* Degree or Certification"
                   name="degree"
+                  helperText={errors.degree ? errors.degree : null}
+                  error={errors.degree}
                   value={degree}
                   onChange={this.onChange}
-                  error={errors.degree}
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Field Of Study"
+                  required
+                  fullWidth
+                  className="mb-3"
                   placeholder="Informatics Technologies"
-                  label="* Field Of Study"
                   name="fieldOfStudy"
+                  helperText={errors.fieldOfStudy ? errors.fieldOfStudy : null}
+                  error={errors.fieldOfStudy}
                   value={fieldOfStudy}
                   onChange={this.onChange}
-                  error={errors.fieldOfStudy}
                 />
-                <TextFieldGroup
+                <TextField
                   label="From date"
-                  name="from"
                   type="date"
+                  name="from"
                   value={from}
+                  className="mb-3"
+                  fullWidth
+                  required
                   onChange={this.onChange}
                   error={errors.from}
+                  helperText={errors.from ? errors.from : null}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
                 />
-                <TextFieldGroup
+                <TextField
                   label="To date"
-                  name="to"
                   type="date"
+                  name="to"
+                  className="mb-3"
                   value={to}
+                  fullWidth
                   onChange={this.onChange}
                   error={errors.to}
-                  disabled={disabled ? 'disabled' : ''}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  disabled={disabled ? true : false}
                 />
-                <div className="form-check mb-4">
-                  <input
-                    type="checkbox"
-                    name="current"
-                    className="form-check-input"
-                    value={current}
-                    checked={current}
-                    onChange={this.onCheck}
-                    id="current"
-                  />
-                  <label htmlFor="current" className="form-check-label">
-                    Current
-                  </label>
-                </div>
-                <TextAreaFieldGroup
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={current}
+                      onChange={this.onCheck}
+                      color="primary"
+                    />
+                  }
+                  label="Current"
+                />
+                <TextField
                   label="Program Description"
-                  placeholder="The program was ..."
                   name="description"
-                  info="Tell us about the program you were in"
+                  placeholder="The program was ..."
+                  multiline
+                  rows="3"
+                  className="mb-3"
+                  fullWidth
+                  helperText={
+                    errors.description
+                      ? errors.description
+                      : 'Tell us about the program you were in'
+                  }
                   value={description}
                   onChange={this.onChange}
                   error={errors.description}
                 />
-                <input
+                <Button
                   type="submit"
-                  value="Submit"
-                  className="btn btn-info btn-block mt-4"
-                />
+                  className="mt-3"
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                >
+                  Submit
+                </Button>
               </form>
             </div>
           </div>

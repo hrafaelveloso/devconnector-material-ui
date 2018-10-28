@@ -40,6 +40,24 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: blue
+  },
+  overrides: {
+    MuiButton: {
+      root: {
+        textTransform: 'none'
+      },
+      contained: {
+        color: 'white'
+      }
+    },
+    MuiTableCell: {
+      head: {
+        fontSize: '1.25rem'
+      },
+      body: {
+        fontSize: '1rem'
+      }
+    }
   }
 });
 

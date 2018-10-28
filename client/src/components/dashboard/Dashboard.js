@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import ProfileActions from './ProfileActions';
 import Experience from './Experience';
 import Education from './Education';
+import { Typography, Button } from '@material-ui/core';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -32,16 +33,20 @@ class Dashboard extends Component {
       if (Object.keys(profile).length > 0) {
         dashBoardContent = (
           <div>
-            <p className="lead text-muted">
+            <Typography variant="h5" style={{ fontWeight: '300' }}>
               Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
-            </p>
+            </Typography>
             <ProfileActions />
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
-            <div className="mb-2">
-              <button onClick={this.onDeleteClick} className="btn btn-danger">
+            <div className="mb-2 mt-3">
+              <Button
+                onClick={this.onDeleteClick}
+                variant="contained"
+                className="bg-danger"
+              >
                 Delete my account
-              </button>
+              </Button>
             </div>
           </div>
         );
@@ -63,7 +68,7 @@ class Dashboard extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
+              <Typography variant="h2">Dashboard</Typography>
               {dashBoardContent}
             </div>
           </div>

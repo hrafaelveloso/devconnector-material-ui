@@ -6,6 +6,13 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 import { addExperience } from '../../actions/credentialsActions';
+import {
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox
+} from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 
 class AddExperience extends Component {
   state = {
@@ -85,83 +92,119 @@ class AddExperience extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-9 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
-                Go Back
+              <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                <Button>
+                  <ArrowBack />
+                  {'  '}
+                  Go Back
+                </Button>
               </Link>
               <h1 className="display-4 text-center">Add Experience</h1>
               <p className="text-lead text-center">
                 Add any job or position that you have had in the past or current
               </p>
               <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
+              <form noValidate onSubmit={this.onSubmit}>
+                <TextField
+                  label="Company"
+                  required
+                  fullWidth
+                  className="mb-3"
                   placeholder="University of Minho"
-                  label="* Company"
                   name="company"
+                  helperText={errors.company ? errors.company : null}
+                  error={errors.company}
                   value={company}
                   onChange={this.onChange}
-                  error={errors.company}
                 />
-                <TextFieldGroup
+                <TextField
+                  label="Job Title"
+                  required
+                  fullWidth
+                  className="mb-3"
                   placeholder="Student"
-                  label="* Job Title"
                   name="title"
+                  helperText={errors.title ? errors.title : null}
+                  error={errors.title}
                   value={title}
                   onChange={this.onChange}
-                  error={errors.title}
                 />
-                <TextFieldGroup
-                  placeholder="Campus de Azurém"
+                <TextField
                   label="Location"
+                  fullWidth
+                  className="mb-3"
+                  placeholder="Campus de Azurém"
                   name="location"
+                  helperText={errors.location ? errors.location : null}
+                  error={errors.location}
                   value={location}
                   onChange={this.onChange}
-                  error={errors.location}
                 />
-                <TextFieldGroup
+                <TextField
                   label="From date"
-                  name="from"
                   type="date"
+                  name="from"
+                  required
                   value={from}
+                  className="mb-3"
+                  fullWidth
                   onChange={this.onChange}
                   error={errors.from}
+                  helperText={errors.from ? errors.from : null}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
                 />
-                <TextFieldGroup
+                <TextField
                   label="To date"
-                  name="to"
                   type="date"
+                  name="to"
+                  className="mb-3"
                   value={to}
+                  fullWidth
                   onChange={this.onChange}
                   error={errors.to}
-                  disabled={disabled ? 'disabled' : ''}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  disabled={disabled ? true : false}
                 />
-                <div className="form-check mb-4">
-                  <input
-                    type="checkbox"
-                    name="current"
-                    className="form-check-input"
-                    value={current}
-                    checked={current}
-                    onChange={this.onCheck}
-                    id="current"
-                  />
-                  <label htmlFor="current" className="form-check-label">
-                    Current Job
-                  </label>
-                </div>
-                <TextAreaFieldGroup
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={current}
+                      onChange={this.onCheck}
+                      color="primary"
+                    />
+                  }
+                  label="Current"
+                />
+                <TextField
                   label="Job Description"
-                  placeholder="The work consisted ..."
                   name="description"
+                  placeholder="The work consisted ..."
+                  multiline
+                  rows="3"
+                  className="mb-3"
+                  fullWidth
+                  helperText={
+                    errors.description
+                      ? errors.description
+                      : 'Tell us about the job you were in'
+                  }
                   value={description}
                   onChange={this.onChange}
                   error={errors.description}
                 />
-                <input
+                <Button
                   type="submit"
-                  value="Submit"
-                  className="btn btn-info btn-block mt-4"
-                />
+                  className="mt-3"
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                >
+                  Submit
+                </Button>
               </form>
             </div>
           </div>

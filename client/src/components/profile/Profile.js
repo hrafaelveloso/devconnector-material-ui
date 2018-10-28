@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProfileByHandle } from '../../actions/profileActions';
+import { Button } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 
 class Profile extends Component {
   componentDidMount() {
@@ -32,8 +34,11 @@ class Profile extends Component {
         <div>
           <div className="row">
             <div className="col-md-6">
-              <Link to="/profiles" className="btn btn-light mb-3 float-left">
-                <i className="fas fa-arrow-circle-left" /> Back to Profiles
+              <Link to="/profiles" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" size="small" className="mb-2">
+                  <ArrowBack />
+                  Back to profiles
+                </Button>
               </Link>
             </div>
           </div>
