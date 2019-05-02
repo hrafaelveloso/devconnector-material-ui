@@ -47,7 +47,7 @@ SelectFormControl.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  required: PropTypes.string.isRequired,
+  required: PropTypes.bool,
   label: PropTypes.string,
   fullWidth: PropTypes.bool,
   className: PropTypes.string,

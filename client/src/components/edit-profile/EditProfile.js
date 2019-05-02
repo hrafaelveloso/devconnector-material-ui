@@ -6,8 +6,11 @@ import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
 import { TextField, Button } from '@material-ui/core';
 import TextFieldAdornment from '../common/TextFieldAdornment';
-import SelectFormControl from '../common/SelectFormControl';
 import { ArrowBack } from '@material-ui/icons';
+import SelectSingleValue from '../common/SelectSingleValue';
+import SelectMultiValue from '../common/SelectMultiValue';
+import CreatableSelect from 'react-select/lib/Creatable';
+import SelectCreatable from '../common/SelectCreatable';
 
 class EditProfile extends Component {
   state = {
@@ -17,6 +20,10 @@ class EditProfile extends Component {
     website: '',
     location: '',
     status: '',
+    status2: [
+      { label: 'Instructor', value: 'Instructor' },
+      { label: 'Teacher', value: 'Teacher' }
+    ],
     skills: '',
     githubUsername: '',
     bio: '',
@@ -25,6 +32,7 @@ class EditProfile extends Component {
     linkedin: '',
     youtube: '',
     instagram: '',
+    newTreatment: '',
     errors: {}
   };
 
@@ -106,6 +114,23 @@ class EditProfile extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onChangeStatus = e => {
+    this.setState({ status: e });
+  };
+
+  onChangeStatusMulti = e => {
+    this.setState({ status2: e });
+  };
+
+  handleChange = (newValue, actionMeta) => {
+    if (actionMeta.action === 'create-option') {
+      this.setState({
+        newTreatment: newValue[newValue.length - 1]
+      });
+    }
+    this.setState({ status: newValue });
+  };
+
   onSubmit = e => {
     e.preventDefault();
 
@@ -154,6 +179,7 @@ class EditProfile extends Component {
       website,
       location,
       status,
+      status2,
       skills,
       githubUsername,
       bio,
@@ -230,12 +256,12 @@ class EditProfile extends Component {
 
     //Select options for status
     const options = [
-      { label: 'Select Professional Status', value: '' },
+      { label: 'Select Professional Status', value: '', isDisabled: true },
       { label: 'Developer', value: 'Developer' },
       { label: 'Junior Developer', value: 'Junior Developer' },
       { label: 'Senior Developer', value: 'Senior Developer' },
       { label: 'Full-Stack Developer', value: 'Full-Stack Developer' },
-      { label: 'Backend Developer', value: 'Backend Developer' },
+      { label: 'Backend Developerrrrr', value: 'Backend Developer' },
       { label: 'Frontend Developer', value: 'Frontend Developer' },
       { label: 'Manager', value: 'Manager' },
       { label: 'Student', value: 'Student' },
@@ -276,17 +302,45 @@ class EditProfile extends Component {
                   value={handle}
                   onChange={this.onChange}
                 />
-                <SelectFormControl
-                  name="status"
-                  value={status}
-                  error={errors.status}
-                  onChange={this.onChange}
-                  options={options}
+                <SelectSingleValue
                   fullWidth
-                  className="mb-3"
-                  required
+                  isClearable
+                  error={errors.status}
+                  onChange={this.onChangeStatus}
                   placeholder="Professional Status"
-                  label="Give us an idea where you are at in your career."
+                  options={options}
+                  helperText="Este é único."
+                  value={
+                    status !== null && status.label
+                      ? { label: status.label, value: status.value }
+                      : null
+                  }
+                  noOptionsMessage="Nenhuma opção satisfaz a procura"
+                />
+                <SelectMultiValue
+                  fullWidth
+                  isClearable
+                  error={errors.status}
+                  onChange={this.onChangeStatusMulti}
+                  placeholder="Professional Status"
+                  options={options}
+                  helperText="Este é múltiplo."
+                  value={status2 !== null ? [...status2] : null}
+                  noOptionsMessage="Nenhuma opção satisfaz a procura"
+                />
+                <SelectCreatable
+                  fullWidth
+                  isClearable
+                  helperText="Este dá para criar"
+                  onChange={this.handleChange}
+                  placeholder="Professional Status"
+                  options={options}
+                  createLabel="Adicionar tratamento: "
+                  value={
+                    status !== null && status.label
+                      ? { label: status.label, value: status.value }
+                      : null
+                  }
                 />
                 <TextField
                   label="Company"
@@ -297,7 +351,7 @@ class EditProfile extends Component {
                   helperText={
                     errors.company
                       ? errors.company
-                      : 'Could be your onw company or one you work for.'
+                      : 'Could be your own company or one you work for.'
                   }
                   error={errors.company}
                   value={company}
